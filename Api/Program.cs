@@ -25,21 +25,30 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Inyección de dependencias para Repositories (NoTransactional)
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 // Inyección de dependencias para UnitOfWork (NoTransactional)
 builder.Services.AddScoped<IClientUnitOfWork, ClientUnitOfWork>();
+builder.Services.AddScoped<IProductUnitOfWork, ProductUnitOfWork>();
 
 // Inyección de dependencias para Services (NoTransactional)
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 // Inyección de dependencias para Repositories (Transactional)
 builder.Services.AddScoped<IClientRepositoryTransactional, ClientRepositoryTransactional>();
+builder.Services.AddScoped<IProductRepositoryTransactional, ProductRepositoryTransactional>();
+builder.Services.AddScoped<IOrderRepositoryTransactional, OrderRepositoryTransactional>();
 
 // Inyección de dependencias para UnitOfWork (Transactional)
 builder.Services.AddScoped<IClientUnitOfWorkTransactional, ClientUnitOfWorkTransactional>();
+builder.Services.AddScoped<IProductUnitOfWorkTransactional, ProductUnitOfWorkTransactional>();
+builder.Services.AddScoped<IOrderUnitOfWorkTransactional, OrderUnitOfWorkTransactional>();
 
 // Inyección de dependencias para Services (Transactional)
 builder.Services.AddScoped<IClientServiceTransactional, ClientServiceTransactional>();
+builder.Services.AddScoped<IProductServiceTransactional, ProductServiceTransactional>();
+builder.Services.AddScoped<IOrderServiceTransactional, OrderServiceTransactional>();
 
 builder.Services.AddControllers();
 
