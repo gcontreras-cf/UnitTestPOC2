@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace UnitTestPOC2.Tests.TestData
+namespace UnitTestPOC2.Tests.TestData.Client
 {
     public class GetByNameTestData : IEnumerable<object[]>
     {

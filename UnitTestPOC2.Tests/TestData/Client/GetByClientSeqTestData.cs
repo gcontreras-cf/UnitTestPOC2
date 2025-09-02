@@ -1,7 +1,8 @@
 using System.Collections;
 using Domain.Entities;
+using ClientEntity = Domain.Entities.Client; // Renamed alias to avoid ambiguity
 
-namespace UnitTestPOC2.Tests.TestData
+namespace UnitTestPOC2.Tests.TestData.Client
 {
     public class GetByClientSeqTestData : IEnumerable<object[]>
     {
@@ -9,11 +10,11 @@ namespace UnitTestPOC2.Tests.TestData
         {
             yield return new object[]
             {
-                new Client { ClientSeq = 1, Name = "John Doe", Email = "john.doe@example.com", Active = true }
+                new ClientEntity { ClientSeq = 1, Name = "John Doe", Email = "john.doe@example.com", Active = true }
             };
             yield return new object[]
             {
-                new Client { ClientSeq = 2, Name = "Jane Doe", Email = "jane.doe@example.com", Active = true }
+                new ClientEntity { ClientSeq = 2, Name = "Jane Doe", Email = "jane.doe@example.com", Active = true }
             };
         }
 
