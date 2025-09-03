@@ -1,5 +1,8 @@
 # Project Setup & Testing Guide
 
+You can use the following video to interact with the application:
+https://channelfusion-my.sharepoint.com/:v:/g/personal/gcontreras_channel-fusion_com/EaPaKlyDNEdHpCF6fxbDyjwBDojWBsDfczO9E3vzLADzUA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=p4W5ud
+
 ## 1. Update the Local Database
 
 **Question:**  
