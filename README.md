@@ -1,52 +1,149 @@
-# Unit Testing Workflow Instructions
-
-This document outlines the recommended workflow and prompts for implementing unit tests in your project.
+# Project Setup & Testing Guide
 
 ## 1. Update the Local Database
-**Prompt:**  
+
+**Question:**  
 What command should I use to update the database on the server?
 
+**Instructions:**  
+Ensure your `appsettings.json` points to your local database.  
+Use NuGet Package Manager or CLI:
+
+```bash
+dotnet ef database update --project Infrastructure --startup-project Api
+```
+
+---
+
 ## 2. Run and Validate Methods and Database
-**Prompt:**  
-Based on the solution, which framework should be used for unit testing, which classes should be tested, how should the project be organized, and which dependencies should be used?
+
+**Question:**  
+Which framework should be used for unit testing, which classes should be tested, how should the project be organized, and which dependencies should be used?
+
+**Instructions:**  
+- Use **xUnit** as the unit testing framework.
+- Prioritize testing controllers and services.
+- Organize test projects by feature or layer:
+  - Example: `Tests/Controllers`, `Tests/Services`
+- Use **Moq** for mocking dependencies.
+- Add references to relevant projects and NuGet packages.
+
+---
 
 ## 3. Create a Unit Test Project
 
-## 4. Generate a Test Class for a Controller
+**Instructions:**  
+Generate a new test project:
+
+```bash
+dotnet new xunit -n ProjectName.Tests
+dotnet add ProjectName.Tests reference Api
+dotnet add ProjectName.Tests reference Infrastructure
+dotnet add package Moq
+```
+
+---
+
+## 4. Generate Test Class for a Controller
+
 **Prompt:**  
-`/test controller`  
-Consider using `Theory`, `InlineData`, and `ClassData` for different scenarios in each test. If necessary, generate mocks for dependencies and utilities.
+`/test #ClientController`
 
-## 5. Run Unit Tests and Validate Results
-If the tests fail, repair them.
+**Instructions:**  
+- Use `[Theory]`, `[InlineData]`, and `[ClassData]` for parameterized tests.
+- Mock dependencies and utilities as needed.
 
-## 6. Explain How the Tests Work and Expected Data
+**Example Test Skeleton:**
+```csharp
+using Xunit;
+using Moq;
 
-## 7. Organize the Code for Refactoring
-Explain how the code should be organized in case of a refactor.
+namespace ProjectName.Tests.Controllers
+{
+    public class ClientControllerTests
+    {
+        // Arrange dependencies with Moq
 
-## 8. Identify Classes Not Validated
+        [Theory]
+        [InlineData(1)]
+        public void GetClient_ReturnsExpectedResult(int clientId)
+        {
+            // Test implementation
+        }
+    }
+}
+```
+
+---
+
+## 5. Run Unit Tests & Validate
+
+**Instructions:**  
+Run tests and validate results:
+
+```bash
+dotnet test ProjectName.Tests
+```
+
+- Investigate and repair any failing tests.
+
+---
+
+## 6. Example Test Class for a Service
+
 **Prompt:**  
-Can interfaces and/or DTO classes be tested, or which classes should be used for unit testing?
+`/test #ClientService`
 
-## 9. Example: Test Class for a Service
-**Prompt:**  
-`/test service`  
-Maintain the structure of previous tests and place the classes in the correct folders.
+**Instructions:**  
+- Follow the same structure as controller tests.
+- Place service test classes in `Tests/Services`.
 
-## 10. Run Tests
+**Example Test Skeleton:**
+```csharp
+using Xunit;
+using Moq;
 
-## 11. Example: Test Class for a Repository
-**Prompt:**  
-`/test repository`  
-Add utilities if necessary.
+namespace ProjectName.Tests.Services
+{
+    public class ClientServiceTests
+    {
+        // Arrange dependencies with Moq
 
-## 12. Run Tests
+        [Theory]
+        [InlineData("validInput")]
+        public void ProcessClient_ReturnsExpectedResult(string input)
+        {
+            // Test implementation
+        }
+    }
+}
+```
 
-## 13. Coverage Report Generation
-**Prompt:**  
+---
+
+## 7. Generate Coverage Report
+
+**Question:**  
 What steps and tools can I use to generate a coverage report?
 
-## 14. Run Coverage Commands
+**Instructions:**  
+- Add **coverlet** for coverage:
+  ```bash
+  dotnet add ProjectName.Tests package coverlet.collector
+  ```
+- Run tests with coverage collection:
+  ```bash
+  dotnet test --collect:"XPlat Code Coverage"
+  ```
 
-## 15. Validate Coverage with HTML Report****
+---
+
+## 8. Validate Coverage with HTML Report
+
+**Instructions:**  
+- Use **ReportGenerator** to create HTML reports:
+  ```bash
+  dotnet tool install -g dotnet-reportgenerator-globaltool
+  reportgenerator -reports:"TestResults/*/coverage.cobertura.xml" -targetdir:"coveragereport" -reporttypes:Html
+  ```
+- Open `coveragereport/index.html` for results.
